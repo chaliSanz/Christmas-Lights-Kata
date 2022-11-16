@@ -262,3 +262,50 @@ func TestExecuteIntrustions(t *testing.T) {
 	assert.Equal(t, expected, got)
 
 }
+func TestExecuteIntrustionsFailedReadStep(t *testing.T) {
+
+	expectedErrorMsg := "erro when try readStep."
+
+	intruncions := []string{
+		"turn on 887,9 through 959,629 te 283,499",
+		"turn on 454,398 through 844,448",
+		"turn off 539,243 through 559,965",
+		"turn off 370,819 through 676,868",
+		"turn off 145,40 through 370,997",
+		"turn off 301,3 through 808,453",
+		"turn on 351,678 through 951,908",
+		"toggle 720,196 through 897,994",
+		"toggle 831,394 through 904,860"}
+	matrix := createMatrix(1000, 1000)
+
+	err, got := executeInstructions(intruncions, matrix)
+
+	assert.EqualErrorf(t, err, expectedErrorMsg, "Error should be: %v, got: %v", expectedErrorMsg, err)
+
+	assert.Equal(t, 0, got)
+
+}
+
+func TestExecuteIntrustionsFailedExecuteStep(t *testing.T) {
+
+	expectedErrorMsg := "erro when try readStep."
+
+	intruncions := []string{
+		"dfe on 887,9 through 959,629 ",
+		"turn on 454,398 through 844,448",
+		"turn off 539,243 through 559,965",
+		"turn off 370,819 through 676,868",
+		"turn off 145,40 through 370,997",
+		"turn off 301,3 through 808,453",
+		"turn on 351,678 through 951,908",
+		"toggle 720,196 through 897,994",
+		"toggle 831,394 through 904,860"}
+	matrix := createMatrix(1000, 1000)
+
+	err, got := executeInstructions(intruncions, matrix)
+
+	assert.EqualErrorf(t, err, expectedErrorMsg, "Error should be: %v, got: %v", expectedErrorMsg, err)
+
+	assert.Equal(t, 0, got)
+
+}
