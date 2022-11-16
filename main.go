@@ -86,52 +86,6 @@ func checkIfAllLightTurnOn(matrix [][]int) bool {
 	return true
 }
 
-func turnOnLight(postionX, positionY Position, matrix [][]int) [][]int {
-
-	for i := postionX.start; i <= postionX.end; i++ {
-		for j := positionY.start; j <= positionY.end; j++ {
-			matrix[i][j]++
-		}
-	}
-
-	return matrix
-
-}
-
-func turnOffLight(postionX, positionY Position, matrix [][]int) [][]int {
-
-	for i := postionX.start; i <= postionX.end; i++ {
-		for j := positionY.start; j <= positionY.end; j++ {
-
-			if matrix[i][j] != 0 {
-				matrix[i][j] = 0
-			}
-
-		}
-	}
-
-	return matrix
-
-}
-
-func toggleLight(postionX, positionY Position, matrix [][]int) [][]int {
-
-	for i := postionX.start; i <= postionX.end; i++ {
-		for j := positionY.start; j <= positionY.end; j++ {
-
-			if matrix[i][j] == 0 {
-				matrix[i][j]++
-				continue
-			}
-			matrix[i][j] = 0
-
-		}
-	}
-
-	return matrix
-
-}
-
 func executeInstructions(intruncions []string, matrix [][]int) int {
 
 	steps := make([]Step, len(intruncions))
@@ -244,6 +198,56 @@ func getOptionFromStep(step string) string {
 			return ""
 		}
 	}
+
+}
+
+func turnOnLight(postionX, positionY Position, matrix [][]int) [][]int {
+
+	for i := postionX.start; i <= postionX.end; i++ {
+		for j := positionY.start; j <= positionY.end; j++ {
+
+			if matrix[i][j] == 0 {
+				matrix[i][j]++
+				continue
+			}
+
+		}
+	}
+
+	return matrix
+
+}
+
+func turnOffLight(postionX, positionY Position, matrix [][]int) [][]int {
+
+	for i := postionX.start; i <= postionX.end; i++ {
+		for j := positionY.start; j <= positionY.end; j++ {
+
+			if matrix[i][j] != 0 {
+				matrix[i][j]--
+			}
+
+		}
+	}
+
+	return matrix
+
+}
+
+func toggleLight(postionX, positionY Position, matrix [][]int) [][]int {
+
+	for i := postionX.start; i <= postionX.end; i++ {
+		for j := positionY.start; j <= positionY.end; j++ {
+
+			if matrix[i][j] == 0 || matrix[i][j] == 1 {
+				matrix[i][j] = matrix[i][j] + 2
+				continue
+			}
+
+		}
+	}
+
+	return matrix
 
 }
 
