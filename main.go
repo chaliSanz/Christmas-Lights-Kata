@@ -132,7 +132,7 @@ func toggleLight(postionX, positionY Position, matrix [][]int) [][]int {
 
 }
 
-func executeInstructions(intruncions []string, matrix [][]int) int {
+func executeInstructions(intruncions []string, matrix [][]int) (error, int) {
 
 	steps := make([]Step, len(intruncions))
 
@@ -140,7 +140,7 @@ func executeInstructions(intruncions []string, matrix [][]int) int {
 
 		err, step := readStep(current)
 		if err != nil {
-			//todo error
+			return errors.New("erro when try readStep."), 0
 		}
 		steps[i] = step
 
@@ -149,13 +149,13 @@ func executeInstructions(intruncions []string, matrix [][]int) int {
 	for _, step := range steps {
 		err, mtrix := executeStep(step, matrix)
 		if err != nil {
-			//todo error
+			return errors.New("error on Steps"), 0
 		}
 
 		matrix = mtrix
 	}
 
-	return countLight(matrix)
+	return nil, countLight(matrix)
 
 }
 

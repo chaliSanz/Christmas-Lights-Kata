@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateMatrix(t *testing.T) {
@@ -254,7 +255,9 @@ func TestExecuteIntrustions(t *testing.T) {
 		"toggle 831,394 through 904,860"}
 	matrix := createMatrix(1000, 1000)
 
-	got := executeInstructions(intruncions, matrix)
+	err, got := executeInstructions(intruncions, matrix)
+
+	assert.Equal(t, nil, err)
 
 	assert.Equal(t, expected, got)
 
